@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -11,11 +12,14 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "Public")));
 
 // Connect to MongoDB
+const MONGO_URI =
+  process.env.MONGO_URI || "mongodb://127.0.0.1:27017/expense_tracker";
+
 mongoose
-  .connect("mongodb://127.0.0.1:27017/expense_tracker")
+  .connect(MONGO_URI, { serverSelectionTimeoutMS: 20000 })
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error connecting to MongoDB:", err));
 
