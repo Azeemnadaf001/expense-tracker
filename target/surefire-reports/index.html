@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+  <meta charset='utf-8'>
+  <title>TestNG reports</title>
+
+    <link type="text/css" href="testng-reports1.css" rel="stylesheet" id="ultra" />
+    <link type="text/css" href="testng-reports.css" rel="stylesheet" id="retro" disabled="false"/>
+    <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="testng-reports.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {packages:['table']});
+      google.setOnLoadCallback(drawTable);
+      var suiteTableInitFunctions = new Array();
+      var suiteTableData = new Array();
+    </script>
+    <!--
+      <script type="text/javascript" src="jquery-ui/js/jquery-ui-1.8.16.custom.min.js"></script>
+     -->
+  </head>
+
+  <body>    <div class="top-banner-root">
+      <span class="top-banner-title-font">Test results</span>
+      <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
+      <br/>
+      <span class="top-banner-font-1">1 suite</span>
+    </div> <!-- top-banner-root -->
+    <div class="navigator-root">
+      <div class="navigator-suite-header">
+        <span>All suites</span>
+        <a href="#" title="Collapse/expand all the suites" class="collapse-all-link">
+          <img src="collapseall.gif" class="collapse-all-icon">
+          </img> <!-- collapse-all-icon -->
+        </a> <!-- collapse-all-link -->
+      </div> <!-- navigator-suite-header -->
+      <div class="suite">
+        <div class="rounded-window">
+          <div class="suite-header light-rounded-window-top">
+            <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" class="navigator-link">
+              <span class="suite-name border-passed">Expense Tracker Test Suite</span>
+            </a> <!-- navigator-link -->
+          </div> <!-- suite-header light-rounded-window-top -->
+          <div class="navigator-suite-content">
+            <div class="suite-section-title">
+              <span>Info</span>
+            </div> <!-- suite-section-title -->
+            <div class="suite-section-content">
+              <ul>
+                <li>
+                  <a href="#" panel-name="test-xml-Expense_Tracker_Test_Suite" class="navigator-link ">
+                    <span>E:\webtech\Expense_Tracker\src\test\resources\testng.xml</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="testlist-Expense_Tracker_Test_Suite" class="navigator-link ">
+                    <span class="test-stats">3 tests</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="group-Expense_Tracker_Test_Suite" class="navigator-link ">
+                    <span>0 groups</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="times-Expense_Tracker_Test_Suite" class="navigator-link ">
+                    <span>Times</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="reporter-Expense_Tracker_Test_Suite" class="navigator-link ">
+                    <span>Reporter output</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="ignored-methods-Expense_Tracker_Test_Suite" class="navigator-link ">
+                    <span>Ignored methods</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="chronological-Expense_Tracker_Test_Suite" class="navigator-link ">
+                    <span>Chronological view</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+              </ul>
+            </div> <!-- suite-section-content -->
+            <div class="result-section">
+              <div class="suite-section-title">
+                <span>Results</span>
+              </div> <!-- suite-section-title -->
+              <div class="suite-section-content">
+                <ul>
+                  <li>
+                    <span class="method-stats">19 methods,   19 passed</span>
+                  </li>
+                  <li>
+                    <span class="method-list-title passed">Passed methods</span>
+                    <span class="show-or-hide-methods passed">
+                      <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" class="hide-methods passed suite-Expense_Tracker_Test_Suite"> (hide)</a> <!-- hide-methods passed suite-Expense_Tracker_Test_Suite -->
+                      <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" class="show-methods passed suite-Expense_Tracker_Test_Suite"> (show)</a> <!-- show-methods passed suite-Expense_Tracker_Test_Suite -->
+                    </span>
+                    <div class="method-list-content passed suite-Expense_Tracker_Test_Suite">
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.ExpenseTrackerTest" class="method navigator-link" hash-for-method="testCreateExpense">testCreateExpense</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.ExpenseTrackerTest" class="method navigator-link" hash-for-method="testDeleteExpense">testDeleteExpense</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.RegistrationTest" class="method navigator-link" hash-for-method="testDuplicateEmailRegistration">testDuplicateEmailRegistration</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.RegistrationTest" class="method navigator-link" hash-for-method="testEmptyFieldsValidation">testEmptyFieldsValidation</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.LoginTest" class="method navigator-link" hash-for-method="testExpenseTrackerPage">testExpenseTrackerPage</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.ExpenseTrackerTest" class="method navigator-link" hash-for-method="testFilterExpenses">testFilterExpenses</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.RegistrationTest" class="method navigator-link" hash-for-method="testInvalidEmailFormat">testInvalidEmailFormat</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.LoginTest" class="method navigator-link" hash-for-method="testJWTTokenGeneration">testJWTTokenGeneration</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.LoginTest" class="method navigator-link" hash-for-method="testLoginPageUI">testLoginPageUI</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.LoginTest" class="method navigator-link" hash-for-method="testLoginWithEmptyFields">testLoginWithEmptyFields</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.LoginTest" class="method navigator-link" hash-for-method="testLoginWithInvalidEmail">testLoginWithInvalidEmail</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.LoginTest" class="method navigator-link" hash-for-method="testLoginWithWrongPassword">testLoginWithWrongPassword</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.LoginTest" class="method navigator-link" hash-for-method="testNavigationToRegistration">testNavigationToRegistration</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.RegistrationTest" class="method navigator-link" hash-for-method="testRegistrationPageUI">testRegistrationPageUI</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.ExpenseTrackerTest" class="method navigator-link" hash-for-method="testSetBudget">testSetBudget</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.LoginTest" class="method navigator-link" hash-for-method="testSuccessfulLogin">testSuccessfulLogin</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.RegistrationTest" class="method navigator-link" hash-for-method="testSuccessfulRegistration">testSuccessfulRegistration</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.ExpenseTrackerTest" class="method navigator-link" hash-for-method="testUpdateExpense">testUpdateExpense</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Expense_Tracker_Test_Suite" title="com.expensetracker.tests.ExpenseTrackerTest" class="method navigator-link" hash-for-method="testViewExpenses">testViewExpenses</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content passed suite-Expense_Tracker_Test_Suite -->
+                  </li>
+                </ul>
+              </div> <!-- suite-section-content -->
+            </div> <!-- result-section -->
+          </div> <!-- navigator-suite-content -->
+        </div> <!-- rounded-window -->
+      </div> <!-- suite -->
+    </div> <!-- navigator-root -->
+    <div class="wrapper">
+      <div class="main-panel-root">
+        <div panel-name="suite-Expense_Tracker_Test_Suite" class="panel Expense_Tracker_Test_Suite">
+          <div class="suite-Expense_Tracker_Test_Suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">com.expensetracker.tests.LoginTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="testExpenseTrackerPage">
+                  </a> <!-- testExpenseTrackerPage -->
+                  <span class="method-name">testExpenseTrackerPage</span>
+                  <em>
+(TC_LOGIN_008: Verify expense tracker page functionality)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testJWTTokenGeneration">
+                  </a> <!-- testJWTTokenGeneration -->
+                  <span class="method-name">testJWTTokenGeneration</span>
+                  <em>
+(TC_LOGIN_006: Verify JWT token generation)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testLoginPageUI">
+                  </a> <!-- testLoginPageUI -->
+                  <span class="method-name">testLoginPageUI</span>
+                  <em>
+(TC_LOGIN_005: Verify login page UI elements)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testLoginWithEmptyFields">
+                  </a> <!-- testLoginWithEmptyFields -->
+                  <span class="method-name">testLoginWithEmptyFields</span>
+                  <em>
+(TC_LOGIN_004: Verify login fails with empty credentials)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testLoginWithInvalidEmail">
+                  </a> <!-- testLoginWithInvalidEmail -->
+                  <span class="method-name">testLoginWithInvalidEmail</span>
+                  <em>
+(TC_LOGIN_002: Verify login fails with invalid email)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testLoginWithWrongPassword">
+                  </a> <!-- testLoginWithWrongPassword -->
+                  <span class="method-name">testLoginWithWrongPassword</span>
+                  <em>
+(TC_LOGIN_003: Verify login fails with incorrect password)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testNavigationToRegistration">
+                  </a> <!-- testNavigationToRegistration -->
+                  <span class="method-name">testNavigationToRegistration</span>
+                  <em>
+(TC_LOGIN_007: Verify navigation from login to registration)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSuccessfulLogin">
+                  </a> <!-- testSuccessfulLogin -->
+                  <span class="method-name">testSuccessfulLogin</span>
+                  <em>
+(TC_LOGIN_001: Verify successful login with valid credentials)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Expense_Tracker_Test_Suite-class-passed -->
+          <div class="suite-Expense_Tracker_Test_Suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">com.expensetracker.tests.RegistrationTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="testDuplicateEmailRegistration">
+                  </a> <!-- testDuplicateEmailRegistration -->
+                  <span class="method-name">testDuplicateEmailRegistration</span>
+                  <em>
+(TC_REG_002: Verify registration fails with duplicate email)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testEmptyFieldsValidation">
+                  </a> <!-- testEmptyFieldsValidation -->
+                  <span class="method-name">testEmptyFieldsValidation</span>
+                  <em>
+(TC_REG_003: Verify registration fails with empty fields)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testInvalidEmailFormat">
+                  </a> <!-- testInvalidEmailFormat -->
+                  <span class="method-name">testInvalidEmailFormat</span>
+                  <em>
+(TC_REG_004: Verify registration with invalid email format)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testRegistrationPageUI">
+                  </a> <!-- testRegistrationPageUI -->
+                  <span class="method-name">testRegistrationPageUI</span>
+                  <em>
+(TC_REG_005: Verify registration page UI elements)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSuccessfulRegistration">
+                  </a> <!-- testSuccessfulRegistration -->
+                  <span class="method-name">testSuccessfulRegistration</span>
+                  <em>
+(TC_REG_001: Verify successful user registration with valid data)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Expense_Tracker_Test_Suite-class-passed -->
+          <div class="suite-Expense_Tracker_Test_Suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">com.expensetracker.tests.ExpenseTrackerTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="testCreateExpense">
+                  </a> <!-- testCreateExpense -->
+                  <span class="method-name">testCreateExpense</span>
+                  <em>
+(TC_EXPENSE_001: Create a new expense)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testDeleteExpense">
+                  </a> <!-- testDeleteExpense -->
+                  <span class="method-name">testDeleteExpense</span>
+                  <em>
+(TC_EXPENSE_004: Delete an expense)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testFilterExpenses">
+                  </a> <!-- testFilterExpenses -->
+                  <span class="method-name">testFilterExpenses</span>
+                  <em>
+(TC_EXPENSE_005: Filter expenses by category)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSetBudget">
+                  </a> <!-- testSetBudget -->
+                  <span class="method-name">testSetBudget</span>
+                  <em>
+(TC_EXPENSE_006: Set monthly budget)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testUpdateExpense">
+                  </a> <!-- testUpdateExpense -->
+                  <span class="method-name">testUpdateExpense</span>
+                  <em>
+(TC_EXPENSE_003: Update an existing expense)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testViewExpenses">
+                  </a> <!-- testViewExpenses -->
+                  <span class="method-name">testViewExpenses</span>
+                  <em>
+(TC_EXPENSE_002: View all expenses)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Expense_Tracker_Test_Suite-class-passed -->
+        </div> <!-- panel Expense_Tracker_Test_Suite -->
+        <div panel-name="test-xml-Expense_Tracker_Test_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">E:\webtech\Expense_Tracker\src\test\resources\testng.xml</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
+&lt;suite name=&quot;Expense Tracker Test Suite&quot; guice-stage=&quot;DEVELOPMENT&quot; verbose=&quot;0&quot;&gt;
+  &lt;parameter name=&quot;browser&quot; value=&quot;chrome&quot;/&gt;
+  &lt;test thread-count=&quot;5&quot; name=&quot;Registration Module Tests&quot; verbose=&quot;0&quot;&gt;
+    &lt;classes&gt;
+      &lt;class name=&quot;com.expensetracker.tests.RegistrationTest&quot;/&gt;
+    &lt;/classes&gt;
+  &lt;/test&gt; &lt;!-- Registration Module Tests --&gt;
+  &lt;test thread-count=&quot;5&quot; name=&quot;Login Module Tests&quot; verbose=&quot;0&quot;&gt;
+    &lt;classes&gt;
+      &lt;class name=&quot;com.expensetracker.tests.LoginTest&quot;/&gt;
+    &lt;/classes&gt;
+  &lt;/test&gt; &lt;!-- Login Module Tests --&gt;
+  &lt;test thread-count=&quot;5&quot; name=&quot;Expense Tracker Module Tests&quot; verbose=&quot;0&quot;&gt;
+    &lt;classes&gt;
+      &lt;class name=&quot;com.expensetracker.tests.ExpenseTrackerTest&quot;/&gt;
+    &lt;/classes&gt;
+  &lt;/test&gt; &lt;!-- Expense Tracker Module Tests --&gt;
+&lt;/suite&gt; &lt;!-- Expense Tracker Test Suite --&gt;
+            </pre>
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="testlist-Expense_Tracker_Test_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Tests for Expense Tracker Test Suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <ul>
+              <li>
+                <span class="test-name">Registration Module Tests (1 class)</span>
+              </li>
+              <li>
+                <span class="test-name">Login Module Tests (1 class)</span>
+              </li>
+              <li>
+                <span class="test-name">Expense Tracker Module Tests (1 class)</span>
+              </li>
+            </ul>
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="group-Expense_Tracker_Test_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Groups for Expense Tracker Test Suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="times-Expense_Tracker_Test_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Times for Expense Tracker Test Suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <div class="times-div">
+              <script type="text/javascript">
+suiteTableInitFunctions.push('tableData_Expense_Tracker_Test_Suite');
+function tableData_Expense_Tracker_Test_Suite() {
+var data = new google.visualization.DataTable();
+data.addColumn('number', 'Number');
+data.addColumn('string', 'Method');
+data.addColumn('string', 'Class');
+data.addColumn('number', 'Time (ms)');
+data.addRows(19);
+data.setCell(0, 0, 0)
+data.setCell(0, 1, 'testDeleteExpense')
+data.setCell(0, 2, 'com.expensetracker.tests.ExpenseTrackerTest')
+data.setCell(0, 3, 40577);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'testUpdateExpense')
+data.setCell(1, 2, 'com.expensetracker.tests.ExpenseTrackerTest')
+data.setCell(1, 3, 38940);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'testFilterExpenses')
+data.setCell(2, 2, 'com.expensetracker.tests.ExpenseTrackerTest')
+data.setCell(2, 3, 38144);
+data.setCell(3, 0, 3)
+data.setCell(3, 1, 'testViewExpenses')
+data.setCell(3, 2, 'com.expensetracker.tests.ExpenseTrackerTest')
+data.setCell(3, 3, 32240);
+data.setCell(4, 0, 4)
+data.setCell(4, 1, 'testSetBudget')
+data.setCell(4, 2, 'com.expensetracker.tests.ExpenseTrackerTest')
+data.setCell(4, 3, 27166);
+data.setCell(5, 0, 5)
+data.setCell(5, 1, 'testCreateExpense')
+data.setCell(5, 2, 'com.expensetracker.tests.ExpenseTrackerTest')
+data.setCell(5, 3, 25462);
+data.setCell(6, 0, 6)
+data.setCell(6, 1, 'testExpenseTrackerPage')
+data.setCell(6, 2, 'com.expensetracker.tests.LoginTest')
+data.setCell(6, 3, 22146);
+data.setCell(7, 0, 7)
+data.setCell(7, 1, 'testSuccessfulLogin')
+data.setCell(7, 2, 'com.expensetracker.tests.LoginTest')
+data.setCell(7, 3, 22119);
+data.setCell(8, 0, 8)
+data.setCell(8, 1, 'testJWTTokenGeneration')
+data.setCell(8, 2, 'com.expensetracker.tests.LoginTest')
+data.setCell(8, 3, 19685);
+data.setCell(9, 0, 9)
+data.setCell(9, 1, 'testDuplicateEmailRegistration')
+data.setCell(9, 2, 'com.expensetracker.tests.RegistrationTest')
+data.setCell(9, 3, 18752);
+data.setCell(10, 0, 10)
+data.setCell(10, 1, 'testLoginWithWrongPassword')
+data.setCell(10, 2, 'com.expensetracker.tests.LoginTest')
+data.setCell(10, 3, 17682);
+data.setCell(11, 0, 11)
+data.setCell(11, 1, 'testSuccessfulRegistration')
+data.setCell(11, 2, 'com.expensetracker.tests.RegistrationTest')
+data.setCell(11, 3, 14111);
+data.setCell(12, 0, 12)
+data.setCell(12, 1, 'testInvalidEmailFormat')
+data.setCell(12, 2, 'com.expensetracker.tests.RegistrationTest')
+data.setCell(12, 3, 7364);
+data.setCell(13, 0, 13)
+data.setCell(13, 1, 'testLoginWithInvalidEmail')
+data.setCell(13, 2, 'com.expensetracker.tests.LoginTest')
+data.setCell(13, 3, 6260);
+data.setCell(14, 0, 14)
+data.setCell(14, 1, 'testNavigationToRegistration')
+data.setCell(14, 2, 'com.expensetracker.tests.LoginTest')
+data.setCell(14, 3, 4218);
+data.setCell(15, 0, 15)
+data.setCell(15, 1, 'testRegistrationPageUI')
+data.setCell(15, 2, 'com.expensetracker.tests.RegistrationTest')
+data.setCell(15, 3, 3216);
+data.setCell(16, 0, 16)
+data.setCell(16, 1, 'testEmptyFieldsValidation')
+data.setCell(16, 2, 'com.expensetracker.tests.RegistrationTest')
+data.setCell(16, 3, 3159);
+data.setCell(17, 0, 17)
+data.setCell(17, 1, 'testLoginWithEmptyFields')
+data.setCell(17, 2, 'com.expensetracker.tests.LoginTest')
+data.setCell(17, 3, 3120);
+data.setCell(18, 0, 18)
+data.setCell(18, 1, 'testLoginPageUI')
+data.setCell(18, 2, 'com.expensetracker.tests.LoginTest')
+data.setCell(18, 3, 2142);
+window.suiteTableData['Expense_Tracker_Test_Suite']= { tableData: data, tableDiv: 'times-div-Expense_Tracker_Test_Suite'}
+return data;
+}
+              </script>
+              <span class="suite-total-time">Total running time: 5 minutes</span>
+              <div id="times-div-Expense_Tracker_Test_Suite">
+              </div> <!-- times-div-Expense_Tracker_Test_Suite -->
+            </div> <!-- times-div -->
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="reporter-Expense_Tracker_Test_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Reporter output for Expense Tracker Test Suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="ignored-methods-Expense_Tracker_Test_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">0 ignored methods</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="chronological-Expense_Tracker_Test_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Methods in chronological order</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <div class="chronological-class">
+              <div class="chronological-class-name">com.expensetracker.tests.ExpenseTrackerTest</div> <!-- chronological-class-name -->
+              <div class="configuration-suite before">
+                <span class="method-name">setupReport</span>
+                <span class="method-start">0 ms</span>
+              </div> <!-- configuration-suite before -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">com.expensetracker.tests.RegistrationTest</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">218 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSuccessfulRegistration</span>
+                <span class="method-start">1457 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">15573 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">15751 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testDuplicateEmailRegistration</span>
+                <span class="method-start">16378 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">35130 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">35287 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testEmptyFieldsValidation</span>
+                <span class="method-start">35912 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">39072 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">39211 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testInvalidEmailFormat</span>
+                <span class="method-start">39820 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">47185 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">47337 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testRegistrationPageUI</span>
+                <span class="method-start">47955 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">51171 ms</span>
+              </div> <!-- configuration-method after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">com.expensetracker.tests.LoginTest</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">51330 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSuccessfulLogin</span>
+                <span class="method-start">51936 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">74056 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">74203 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testLoginWithInvalidEmail</span>
+                <span class="method-start">74824 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">81084 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">81227 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testLoginWithWrongPassword</span>
+                <span class="method-start">81851 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">99534 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">99691 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testLoginWithEmptyFields</span>
+                <span class="method-start">100293 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">103414 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">103542 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testLoginPageUI</span>
+                <span class="method-start">104148 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">106290 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">106408 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testJWTTokenGeneration</span>
+                <span class="method-start">106997 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">126682 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">126826 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testNavigationToRegistration</span>
+                <span class="method-start">127426 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">131644 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">131761 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testExpenseTrackerPage</span>
+                <span class="method-start">132378 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">154525 ms</span>
+              </div> <!-- configuration-method after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">com.expensetracker.tests.ExpenseTrackerTest</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">154677 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testCreateExpense</span>
+                <span class="method-start">155294 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">180756 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">180924 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testViewExpenses</span>
+                <span class="method-start">181527 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">213767 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">213910 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testUpdateExpense</span>
+                <span class="method-start">214528 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">253469 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">253610 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testDeleteExpense</span>
+                <span class="method-start">254230 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">294807 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">294956 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testFilterExpenses</span>
+                <span class="method-start">295554 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">333698 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">333826 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSetBudget</span>
+                <span class="method-start">334410 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">361576 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-suite after">
+                <span class="method-name">tearDownReport</span>
+                <span class="method-start">361716 ms</span>
+              </div> <!-- configuration-suite after -->
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+      </div> <!-- main-panel-root -->
+    </div> <!-- wrapper -->
+  </body>
+<script type="text/javascript" src="testng-reports2.js"></script>
+</html>

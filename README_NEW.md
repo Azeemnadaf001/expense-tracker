@@ -14,16 +14,19 @@ A comprehensive web application to track daily expenses, manage budgets, and vis
 ## 📋 Technology Stack
 
 ### Frontend
+
 - HTML5, CSS3, JavaScript
 - Responsive Design
 
 ### Backend
+
 - Node.js & Express.js
 - MongoDB with Mongoose
 - JWT Authentication
 - bcrypt Password Hashing
 
 ### Testing Framework
+
 - **Selenium WebDriver** (Java)
 - **TestNG** Framework
 - **Maven** Build Tool
@@ -58,10 +61,12 @@ Expense_Tracker/
 ### Prerequisites
 
 **For Running Application:**
-- Node.js v14+ 
+
+- Node.js v14+
 - MongoDB (running on localhost:27017)
 
 **For Running Tests:**
+
 - Java JDK 11+
 - Apache Maven 3.6+
 - Chrome & Firefox browsers
@@ -70,12 +75,14 @@ Expense_Tracker/
 ### Installation
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/Azeemnadaf001/expense-tracker.git
    cd Expense_Tracker
    ```
 
 2. **Install Node.js dependencies:**
+
    ```bash
    npm install
    ```
@@ -88,15 +95,17 @@ Expense_Tracker/
 ### Running the Application
 
 1. **Start MongoDB:**
+
    ```bash
    # Windows
    net start MongoDB
-   
+
    # Linux/Mac
    sudo systemctl start mongod
    ```
 
 2. **Start the server:**
+
    ```bash
    npm start
    ```
@@ -113,6 +122,7 @@ Expense_Tracker/
 This project includes **12 comprehensive automated test cases**:
 
 **Module 1: User Registration (5 tests)**
+
 - TC_REG_001: Successful registration with valid data
 - TC_REG_002: Duplicate email rejection
 - TC_REG_003: Empty fields validation
@@ -120,6 +130,7 @@ This project includes **12 comprehensive automated test cases**:
 - TC_REG_005: UI elements verification
 
 **Module 2: User Login (7 tests)**
+
 - TC_LOGIN_001: Successful login with valid credentials
 - TC_LOGIN_002: Invalid email rejection
 - TC_LOGIN_003: Incorrect password rejection
@@ -152,6 +163,7 @@ mvn test -DsuiteXmlFile=src/test/resources/testng-firefox.xml
 #### Eclipse IDE:
 
 1. **Import Project:**
+
    - File → Import → Maven → Existing Maven Projects
    - Browse to `Expense_Tracker` directory
    - Click Finish
@@ -166,22 +178,26 @@ mvn test -DsuiteXmlFile=src/test/resources/testng-firefox.xml
 After test execution, reports are auto-generated in `test-output/`:
 
 **📊 Extent Report** (Primary):
+
 - Location: `test-output/ExtentReport.html`
 - Features: Dashboard, pie charts, detailed logs, screenshots
 - Open in browser: `start test-output\ExtentReport.html`
 
 **📋 TestNG Report**:
+
 - Location: `test-output/index.html`
 - Features: Suite results, execution time, stack traces
 
 ### Cross-Browser Testing
 
 **Chrome:**
+
 ```bash
 mvn test -DsuiteXmlFile=src/test/resources/testng-chrome.xml
 ```
 
 **Firefox:**
+
 ```bash
 mvn test -DsuiteXmlFile=src/test/resources/testng-firefox.xml
 ```
@@ -201,10 +217,12 @@ mvn test -DsuiteXmlFile=src/test/resources/testng-firefox.xml
 ## 🔗 API Endpoints
 
 ### Authentication
+
 - `POST /register` - Register new user
 - `POST /login` - Login and get JWT token
 
 ### Expense Management (Requires Authentication)
+
 - `POST /add-expense` - Add new expense
 - `GET /get-expenses` - Get all user expenses
 - `PUT /update-expense/:id` - Update expense
@@ -221,7 +239,7 @@ mvn test -DsuiteXmlFile=src/test/resources/testng-firefox.xml
 ✅ **Console Output:** Detailed execution logs visible in console  
 ✅ **Test Reports:** Extent Reports + TestNG Reports (≥80% coverage)  
 ✅ **No Deployment:** Focus on testing, no application deployment  
-✅ **Minimal Changes:** Only testing-related files added  
+✅ **Minimal Changes:** Only testing-related files added
 
 ## 🚦 Quick Start for Testing
 
@@ -239,6 +257,7 @@ start test-output\ExtentReport.html
 ## 🛠️ Troubleshooting
 
 ### Application Won't Start
+
 ```bash
 # Check MongoDB
 net start MongoDB
@@ -248,6 +267,7 @@ netstat -ano | findstr :3000
 ```
 
 ### Tests Fail to Run
+
 ```bash
 # Update Maven dependencies
 mvn clean install -U
@@ -260,12 +280,14 @@ mvn -version   # Should be 3.6+
 ```
 
 ### Browser Driver Issues
+
 - WebDriverManager automatically handles driver downloads
 - Ensure Chrome/Firefox browsers are installed and updated
 
 ## 📝 Test Execution Checklist
 
 Before running tests:
+
 - [ ] MongoDB is running
 - [ ] Application server is running (`npm start`)
 - [ ] Application accessible at http://localhost:3000
@@ -290,13 +312,14 @@ For queries: [anuragchougule0160@gmail.com](mailto:anuragchougule0160@gmail.com)
 **Academic Year:** 2025-2026  
 **Testing Framework:** Selenium WebDriver + Java + TestNG + Maven  
 **Build Tool:** Apache Maven 3.6+  
-**Report Generation:** Extent Reports 5.1.2 + TestNG 7.10.2  
+**Report Generation:** Extent Reports 5.1.2 + TestNG 7.10.2
 
 ---
 
 ## 🎯 Summary
 
 This project demonstrates professional software testing practices with:
+
 - 12 comprehensive automated test cases
 - Cross-browser testing capability
 - Detailed HTML reports with 80%+ coverage

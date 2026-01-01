@@ -1,4 +1,5 @@
 # SELENIUM TEST AUTOMATION - EXECUTION GUIDE
+
 ## Expense Tracker Web Application Testing
 
 **Project:** Expense Tracker - SE Web Technology Course Project  
@@ -9,6 +10,7 @@
 ---
 
 ## TABLE OF CONTENTS
+
 1. [Project Overview](#project-overview)
 2. [Prerequisites](#prerequisites)
 3. [Project Structure](#project-structure)
@@ -26,6 +28,7 @@
 This project contains automated Selenium WebDriver tests for the Expense Tracker web application.
 
 **Modules Tested:**
+
 1. **User Registration** - 5 Test Cases (TC_REG_001 to TC_REG_005)
 2. **User Login** - 7 Test Cases (TC_LOGIN_001 to TC_LOGIN_007)
 
@@ -37,23 +40,29 @@ This project contains automated Selenium WebDriver tests for the Expense Tracker
 ## PREREQUISITES
 
 ### Software Requirements
+
 1. **Java JDK 11 or higher**
+
    - Download: https://www.oracle.com/java/technologies/javase-downloads.html
    - Verify installation: `java -version`
 
 2. **Apache Maven 3.6+**
+
    - Download: https://maven.apache.org/download.cgi
    - Verify installation: `mvn -version`
 
 3. **Eclipse IDE for Java Developers**
+
    - Download: https://www.eclipse.org/downloads/
    - Version: 2023-12 or later
 
 4. **Web Browsers**
+
    - Google Chrome (Latest version)
    - Mozilla Firefox (Latest version)
 
 5. **MongoDB**
+
    - Required for application backend
    - Must be running on localhost:27017
 
@@ -97,25 +106,29 @@ Expense_Tracker/
 
 1. Open terminal/command prompt
 2. Navigate to the Expense_Tracker directory:
+
    ```bash
    cd E:/webtech/Expense_Tracker
    ```
 
 3. Make sure MongoDB is running:
+
    ```bash
    # Windows
    net start MongoDB
-   
+
    # Or check if running
    mongod --version
    ```
 
 4. Install dependencies (if not done):
+
    ```bash
    npm install
    ```
 
 5. Start the application server:
+
    ```bash
    npm start
    ```
@@ -128,6 +141,7 @@ Expense_Tracker/
 
 1. Open terminal in project directory
 2. Run Maven install:
+
    ```bash
    mvn clean install
    ```
@@ -146,11 +160,13 @@ Expense_Tracker/
 ### Method 1: Running from Command Line (Maven)
 
 #### Run All Tests (Default - Chrome):
+
 ```bash
 mvn clean test
 ```
 
 #### Run Specific Test Suite:
+
 ```bash
 # Run only Registration tests
 mvn test -Dtest=RegistrationTest
@@ -160,6 +176,7 @@ mvn test -Dtest=LoginTest
 ```
 
 #### Run with Specific Browser:
+
 ```bash
 # Run on Chrome
 mvn test -Dbrowser=chrome
@@ -169,6 +186,7 @@ mvn test -Dbrowser=firefox
 ```
 
 #### Run Specific TestNG XML File:
+
 ```bash
 # Default suite
 mvn test -DsuiteXmlFile=src/test/resources/testng.xml
@@ -187,6 +205,7 @@ mvn test -DsuiteXmlFile=src/test/resources/testng-firefox.xml
 1. Open Eclipse IDE
 
 2. Import Maven Project:
+
    - File → Import → Maven → Existing Maven Projects
    - Browse to `E:/webtech/Expense_Tracker`
    - Click Finish
@@ -199,24 +218,28 @@ mvn test -DsuiteXmlFile=src/test/resources/testng-firefox.xml
 #### Run Tests from Eclipse:
 
 **Option A: Run Individual Test Class**
+
 1. Navigate to `src/test/java/com/expensetracker/tests/`
 2. Right-click on `RegistrationTest.java` or `LoginTest.java`
 3. Select `Run As → TestNG Test`
 4. View results in Console and TestNG Results tab
 
 **Option B: Run TestNG XML Suite**
+
 1. Navigate to `src/test/resources/`
 2. Right-click on `testng.xml` (or `testng-chrome.xml` / `testng-firefox.xml`)
 3. Select `Run As → TestNG Suite`
 4. Results will appear in Console and TestNG Results panel
 
 **Option C: Run as Maven Test**
+
 1. Right-click on project root
 2. Select `Run As → Maven test`
 3. All tests will execute
 4. Results in Console
 
 #### View Console Output in Eclipse:
+
 - Eclipse Console tab will show:
   - ✓ Test execution progress
   - ✓ Pass/Fail status
@@ -230,15 +253,18 @@ mvn test -DsuiteXmlFile=src/test/resources/testng-firefox.xml
 ### Chrome Browser Testing
 
 **Command Line:**
+
 ```bash
 mvn test -DsuiteXmlFile=src/test/resources/testng-chrome.xml
 ```
 
 **Eclipse:**
+
 1. Right-click `testng-chrome.xml`
 2. Run As → TestNG Suite
 
 **What Happens:**
+
 - WebDriverManager automatically downloads ChromeDriver
 - Tests run in Chrome browser
 - Browser maximizes automatically
@@ -247,15 +273,18 @@ mvn test -DsuiteXmlFile=src/test/resources/testng-chrome.xml
 ### Firefox Browser Testing
 
 **Command Line:**
+
 ```bash
 mvn test -DsuiteXmlFile=src/test/resources/testng-firefox.xml
 ```
 
 **Eclipse:**
+
 1. Right-click `testng-firefox.xml`
 2. Run As → TestNG Suite
 
 **What Happens:**
+
 - WebDriverManager automatically downloads GeckoDriver
 - Tests run in Firefox browser
 - Browser opens in specified dimensions
@@ -265,11 +294,13 @@ mvn test -DsuiteXmlFile=src/test/resources/testng-firefox.xml
 
 **Method 1: Change TestNG XML Parameter**
 Edit `src/test/resources/testng.xml`:
+
 ```xml
 <parameter name="browser" value="chrome"/>  <!-- Change to "firefox" -->
 ```
 
 **Method 2: System Property**
+
 ```bash
 mvn test -Dbrowser=firefox
 ```
@@ -288,11 +319,13 @@ Already configured in `BaseTest.java` - reads from system property
 **Location:** `test-output/ExtentReport.html`
 
 **To View:**
+
 1. After test execution completes
 2. Navigate to `test-output` folder
 3. Open `ExtentReport.html` in any browser
 
 **Features:**
+
 - ✅ Dashboard with test statistics
 - ✅ Pass/Fail pie charts
 - ✅ Test execution timeline
@@ -302,6 +335,7 @@ Already configured in `BaseTest.java` - reads from system property
 - ✅ Professional styling
 
 **Coverage Calculation:**
+
 - Total Tests: 12
 - To achieve 80% pass rate: Minimum 10 tests must pass
 - Report shows: (Passed Tests / Total Tests) × 100%
@@ -311,6 +345,7 @@ Already configured in `BaseTest.java` - reads from system property
 **Location:** `test-output/index.html`
 
 **Features:**
+
 - Suite-level results
 - Test execution time
 - Exception stack traces
@@ -321,6 +356,7 @@ Already configured in `BaseTest.java` - reads from system property
 **Location:** `test-output/testng-results.xml`
 
 **Features:**
+
 - Machine-readable XML format
 - Can be parsed by CI/CD tools
 - Contains detailed execution data
@@ -328,6 +364,7 @@ Already configured in `BaseTest.java` - reads from system property
 ### Opening Reports
 
 **Windows:**
+
 ```cmd
 # Open Extent Report
 start test-output\ExtentReport.html
@@ -337,6 +374,7 @@ start test-output\index.html
 ```
 
 **Linux/Mac:**
+
 ```bash
 # Open Extent Report
 open test-output/ExtentReport.html
@@ -346,12 +384,14 @@ open test-output/index.html
 ```
 
 **From Eclipse:**
+
 1. Right-click on `test-output/ExtentReport.html`
 2. Select `Open With → Web Browser`
 
 ### Report Contents
 
 **Extent Report Dashboard:**
+
 ```
 📊 Test Execution Summary
 ├── Total Tests: 12
@@ -398,11 +438,13 @@ open test-output/index.html
 ### Project Configuration
 
 1. **Set JRE/JDK:**
+
    - Right-click project → Properties
    - Java Build Path → Libraries
    - Ensure JDK 11+ is selected
 
 2. **Maven Dependencies:**
+
    - Right-click project → Maven → Update Project
    - Force update if needed
 
@@ -417,9 +459,11 @@ open test-output/index.html
 ### Common Issues and Solutions
 
 #### Issue 1: Application Not Running
+
 **Error:** Connection refused to localhost:3000
 
 **Solution:**
+
 ```bash
 # Check if server is running
 netstat -ano | findstr :3000
@@ -432,9 +476,11 @@ net start MongoDB
 ```
 
 #### Issue 2: MongoDB Connection Error
+
 **Error:** MongoServerError: connect ECONNREFUSED
 
 **Solution:**
+
 ```bash
 # Start MongoDB service
 net start MongoDB
@@ -444,9 +490,11 @@ mongod --dbpath C:\data\db
 ```
 
 #### Issue 3: Browser Driver Not Found
+
 **Error:** WebDriverException: chrome/geckodriver not found
 
 **Solution:**
+
 - WebDriverManager should auto-download drivers
 - If it fails, manually download:
   - ChromeDriver: https://chromedriver.chromium.org/
@@ -454,9 +502,11 @@ mongod --dbpath C:\data\db
 - Place in system PATH
 
 #### Issue 4: Tests Fail Due to Timing
+
 **Error:** NoSuchElementException or StaleElementReferenceException
 
 **Solution:**
+
 - Increase wait time in `BaseTest.java`:
   ```java
   driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
@@ -467,9 +517,11 @@ mongod --dbpath C:\data\db
   ```
 
 #### Issue 5: Maven Build Fails
+
 **Error:** Cannot resolve dependencies
 
 **Solution:**
+
 ```bash
 # Clear Maven cache
 mvn dependency:purge-local-repository
@@ -479,9 +531,11 @@ mvn clean install -U
 ```
 
 #### Issue 6: TestNG Not Found in Eclipse
+
 **Error:** TestNG libraries missing
 
 **Solution:**
+
 1. Install TestNG plugin (see Eclipse IDE Setup section)
 2. Right-click project → Properties → Java Build Path
 3. Add Library → TestNG
@@ -532,6 +586,7 @@ mvn test -X                                       # Debug mode
 ### Success Criteria
 
 **Registration Module (5 tests):**
+
 - TC_REG_001: ✅ Pass - Valid registration succeeds
 - TC_REG_002: ✅ Pass - Duplicate email rejected
 - TC_REG_003: ✅ Pass - Empty fields validated
@@ -539,6 +594,7 @@ mvn test -X                                       # Debug mode
 - TC_REG_005: ✅ Pass - UI elements present
 
 **Login Module (7 tests):**
+
 - TC_LOGIN_001: ✅ Pass - Valid login succeeds
 - TC_LOGIN_002: ✅ Pass - Invalid email rejected
 - TC_LOGIN_003: ✅ Pass - Wrong password rejected
@@ -554,6 +610,7 @@ mvn test -X                                       # Debug mode
 ## CONTACT AND SUPPORT
 
 For issues or questions regarding test execution:
+
 1. Check this guide first
 2. Review console logs for error details
 3. Check test reports in `test-output/` directory
@@ -575,6 +632,6 @@ For issues or questions regarding test execution:
 ✅ **Cross-Browser:** Chrome and Firefox support configured  
 ✅ **Reporting:** Extent Reports + TestNG Reports (80%+ coverage)  
 ✅ **Eclipse Compatible:** Ready to run from Eclipse IDE  
-✅ **Maven Integration:** Full Maven support with pom.xml  
+✅ **Maven Integration:** Full Maven support with pom.xml
 
 **You are ready to execute tests! Good luck with your SE course project!** 🚀

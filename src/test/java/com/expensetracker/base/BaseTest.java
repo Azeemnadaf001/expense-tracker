@@ -118,4 +118,67 @@ public class BaseTest {
             e.printStackTrace();
         }
     }
+    
+    /**
+     * Click element using JavaScript (for elements that are not directly interactable)
+     * @param element WebElement to click
+     */
+    protected void clickWithJS(org.openqa.selenium.WebElement element) {
+        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+    }
+    
+    /**
+     * Scroll element into view
+     * @param element WebElement to scroll to
+     */
+    protected void scrollToElement(org.openqa.selenium.WebElement element) {
+        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        waitFor(1);
+    }
+    
+    /**
+     * Trigger validation on registration form fields
+     * This dispatches input events to enable the register button
+     */
+    protected void triggerRegisterValidation() {
+        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript(
+            "var fields = ['name', 'registerEmail', 'registerPassword', 'confirmPassword'];" +
+            "fields.forEach(function(id) {" +
+            "  var element = document.getElementById(id);" +
+            "  if (element) element.dispatchEvent(new Event('input', { bubbles: true }));" +
+            "});"
+        );
+        waitFor(1);
+    }
+    
+    /**
+     * Trigger validation on login form fields
+     * This dispatches input events to enable the login button
+     */
+    protected void triggerLoginValidation() {
+        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript(
+            "var fields = ['email', 'password'];" +
+            "fields.forEach(function(id) {" +
+            "  var element = document.getElementById(id);" +
+            "  if (element) element.dispatchEvent(new Event('input', { bubbles: true }));" +
+            "});"
+        );
+        waitFor(1);
+    }
+    
+    /**
+     * Handle alert if present
+     * @return true if alert was handled, false if no alert present
+     */
+    protected boolean handleAlert() {
+        try {
+            org.openqa.selenium.Alert alert = driver.switchTo().alert();
+            String alertText = alert.getText();
+            System.out.println("Alert detected: " + alertText);
+            alert.accept();
+            return true;
+        } catch (org.openqa.selenium.NoAlertPresentException e) {
+            return false;
+        }
+    }
 }

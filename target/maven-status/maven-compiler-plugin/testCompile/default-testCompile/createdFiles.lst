@@ -1,0 +1,4 @@
+com\expensetracker\base\BaseTest.class
+com\expensetracker\tests\LoginTest.class
+com\expensetracker\tests\ExpenseTrackerTest.class
+com\expensetracker\tests\RegistrationTest.class
