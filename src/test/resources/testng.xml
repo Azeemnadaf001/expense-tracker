@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Expense Tracker Test Suite" parallel="false">
+    
+    <parameter name="browser" value="chrome"/>
+    
+    <test name="Registration Module Tests">
+        <classes>
+            <class name="com.expensetracker.tests.RegistrationTest"/>
+        </classes>
+    </test>
+    
+    <test name="Login Module Tests">
+        <classes>
+            <class name="com.expensetracker.tests.LoginTest"/>
+        </classes>
+    </test>
+    
+</suite>
