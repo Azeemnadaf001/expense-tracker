@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="expense-tracker.css">
+</head>
+
+<body>
+    <!-- Header where welcome message will appear -->
+<div id="header">
+    <h1>Expense Tracker</h1>
+    <div id="welcome-message">Welcome!</div> <!-- This will show the welcome message -->
+</div>
+
+    <div class="container index-container">
+        <div class="header">
+            <h1>Expense Tracker</h1>
+            <!-- Welcome message added here -->
+            <p id="welcome-message" class="welcome-message"></p> <!-- Welcome message section -->
+            <img src="Expensetrackerpage_1.png" alt="photo" class="photo">
+        </div>
+
+        <!-- Expense Form -->
+        <form id="expense-form" action="/add-expense" method="POST" onsubmit="return handleExpense(event)">
+            <input type="text" id="expense-name" placeholder="Expense Name" required />
+            <input type="number" id="expense-amount" placeholder="Amount" required />
+            <select id="expense-category" required>
+                <option value="" disabled selected>Select Category</option>
+                <option value="Food">Food</option>
+                <option value="Transport">Transport</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Other">Other</option>
+            </select>
+            <input type="date" id="expense-date" required />
+            <!-- <form id="trackExpense" action="/add-expense" method="POST" onsubmit="return handleExpense(event)"> -->
+            <button type="submit" >Add Expense</button>
+            <!-- </form> -->
+        </form>
+
+        <!-- Budget Management Section -->
+        <div class="budget-section">
+            <h2>Monthly Budget Management</h2>
+            <form id="budget-form" onsubmit="return setBudget(event)">
+                <input type="number" id="budget-amount" placeholder="Set Monthly Budget (₹)" min="0" step="0.01" required />
+                <button type="submit">Set Budget</button>
+            </form>
+            
+            <!-- Budget Status Display -->
+            <div id="budget-status" class="budget-status" style="display: none;">
+                <div class="budget-info">
+                    <p><strong>Monthly Budget:</strong> ₹<span id="budget-display">0</span></p>
+                    <p><strong>Total Expenses:</strong> ₹<span id="expense-display">0</span></p>
+                    <p><strong>Remaining:</strong> ₹<span id="remaining-display">0</span></p>
+                    <p><strong>Usage:</strong> <span id="usage-percentage">0</span>%</p>
+                </div>
+                <div id="budget-intensity" class="budget-intensity">
+                    <span id="intensity-indicator"></span>
+                </div>
+            </div>
+        </div>
+        
+        <form id="expense-form" onsubmit="return getExpense(event)">
+            <button type="submit">Get Expenses</button>
+        </form>
+        
+        <div class="expense-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Expense Name</th>
+                        <th>Amount</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="expense-list"></tbody>
+            </table>
+
+            <!-- Expense Specifications -->
+            <div class="total-amount">
+                <h2>Expense Breakdown (Pie Chart)</h2>
+                <div class="chart-container">
+                    <canvas id="expense-chart"></canvas>
+                </div>
+                <strong>Total:</strong> ₹<span id="total-amount">0</span>
+            </div>
+        </div>
+
+        <!-- Filter by Category -->
+        <div class="filter">
+            <label for="filter-category">Filter by Category:</label>
+            <select id="filter-category">
+                <option value="All">All</option>
+                <option value="Food">Food</option>
+                <option value="Transport">Transport</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <!-- Export to CSV Button -->
+        <button id="export-btn" onclick="exportToCSV()">Export to CSV</button>
+
+        <!-- Logout Button -->
+        <button id="logout-btn" onclick="logout()">Logout</button>
+        
+    </div>
+
+    <script>
+        // Function to display welcome message
+        function displayWelcomeMessage() {
+            const userName = localStorage.getItem('userName');
+            const welcomeMessageElement = document.getElementById('welcome-message');
+            if (userName) {
+                welcomeMessageElement.textContent = `Welcome, ${userName}!`;
+            } else {
+                welcomeMessageElement.textContent = 'Welcome!';
+            }
+        }
+
+        // Call the function when the page loads
+        window.onload = function () {
+            displayWelcomeMessage();
+            fetchBudget(); // Fetch the user's budget on page load
+        };
+        
+        // Set Budget Function
+        async function setBudget(event) {
+            event.preventDefault();
+            
+            const budget = parseFloat(document.getElementById('budget-amount').value);
+            
+            if (budget <= 0) {
+                alert('Please enter a valid budget amount.');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/set-budget', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ budget }),
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert(data.message);
+                    document.getElementById('budget-form').reset();
+                    fetchBudget(); // Refresh budget display
+                    updateBudgetStatus(); // Update budget status
+                } else {
+                    alert(data.error || 'Failed to set budget.');
+                }
+            } catch (error) {
+                console.error('Error setting budget:', error);
+                alert('Something went wrong. Please try again.');
+            }
+        }
+        
+        // Fetch Budget Function
+        async function fetchBudget() {
+            try {
+                const response = await fetch('/get-budget', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.budget > 0) {
+                    document.getElementById('budget-display').textContent = data.budget.toFixed(2);
+                    document.getElementById('budget-status').style.display = 'block';
+                    updateBudgetStatus();
+                }
+            } catch (error) {
+                console.error('Error fetching budget:', error);
+            }
+        }
+        
+        // Update Budget Status and Intensity
+        function updateBudgetStatus() {
+            const budget = parseFloat(document.getElementById('budget-display').textContent || 0);
+            
+            if (budget === 0) return; // Don't update if budget is not set
+            
+            // Calculate total expenses
+            const totalExpense = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+            const remaining = budget - totalExpense;
+            const usagePercentage = (totalExpense / budget) * 100;
+            
+            // Update display
+            document.getElementById('expense-display').textContent = totalExpense.toFixed(2);
+            document.getElementById('remaining-display').textContent = remaining.toFixed(2);
+            document.getElementById('usage-percentage').textContent = usagePercentage.toFixed(1);
+            
+            // Determine intensity level
+            const intensityIndicator = document.getElementById('intensity-indicator');
+            const budgetIntensity = document.getElementById('budget-intensity');
+            
+            // Remove existing classes
+            budgetIntensity.className = 'budget-intensity';
+            
+            if (usagePercentage <= 70) {
+                budgetIntensity.classList.add('safe');
+                intensityIndicator.innerHTML = '🟢 Safe - Spending under control';
+            } else if (usagePercentage <= 90) {
+                budgetIntensity.classList.add('warning');
+                intensityIndicator.innerHTML = '🟡 Warning - Near budget limit';
+            } else {
+                budgetIntensity.classList.add('exceeded');
+                intensityIndicator.innerHTML = '🔴 Exceeded - Budget crossed / danger';
+            }
+            
+            // Show budget status
+            document.getElementById('budget-status').style.display = 'block';
+        }
+        
+        // Expense Tracker JavaScript
+        async function handleExpense(event) {
+            event.preventDefault();
+
+            const userId = localStorage.getItem('userId');
+            console.log(userId);
+            const description = document.getElementById('expense-name').value;
+            const amount = document.getElementById('expense-amount').value;
+            const type = document.getElementById('expense-category').value;
+            const expenseDate = document.getElementById('expense-date').value;
+
+
+            try {
+                const response = await fetch('/add-expense', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userId, description, amount, type }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Show the success message and redirect
+                    alert(data.message); // Display success message
+                    
+                    // Refresh expenses to update the list
+                    expenses = data.expenses.map(expense => ({
+                        name: expense.description,
+                        amount: expense.amount,
+                        category: expense.type,
+                        date: expense.date,
+                        _id: expense._id
+                    }));
+                    
+                    updateExpenseList(expenses);
+                    updateTotalExpense(expenses);
+                    updateChart();
+                    updateBudgetStatus(); // Update budget status after adding expense
+                    
+                    document.getElementById('expense-form').reset();
+                    // window.location.href = "expense-tracker.html"; // Redirect to expense tracker page
+                } else {
+                    // Display error message
+                    errorMessage.textContent = data.error;
+                    errorMessage.style.color = 'red';
+                }
+            } catch (error) {
+                console.error('Error adding expense:', error);
+                errorMessage.textContent = 'Something went wrong. Please try again later.';
+                errorMessage.style.color = 'red';
+            }
+        }
+
+        async function getExpense(event) {
+    event.preventDefault(); // Prevent form submission
+
+    try {
+        const response = await fetch('/get-expenses', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Successfully fetched expenses
+            console.log(data.expenses);
+            alert('Expenses fetched successfully!');
+            
+            // Update the global expenses array from script.js
+            expenses = data.expenses.map(expense => ({
+                name: expense.description,
+                amount: expense.amount,
+                category: expense.type,
+                date: expense.date,
+                _id: expense._id
+            }));
+            
+            // Update all displays
+            updateExpenseList(expenses);
+            updateTotalExpense(expenses);
+            updateChart();
+            updateBudgetStatus(); // Update budget status
+            
+            // Show the expense list
+            document.getElementById("expense-list").style.display = 'block';
+            document.getElementById("export-btn").style.display = 'inline-block';
+        } else {
+            // Display error message
+            alert(data.error || 'Failed to fetch expenses.');
+        }
+    } catch (error) {
+        console.error('Error in fetching expenses:', error);
+        alert('Something went wrong. Please try again later.');
+    }
+}
+
+
+        // Logout functionality
+        function logout() {
+            // Clear user data from localStorage
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userEmail');
+            
+            // Make a server request to handle logout (optional)
+            fetch('/logout', {
+                method: 'POST',
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message); // Show logout message
+                    window.location.href = 'login-register.html'; // Redirect to login page
+                })
+                .catch(error => {
+                    console.error('Error during logout:', error);
+                });
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
