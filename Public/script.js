@@ -1,6 +1,8 @@
 let expenses = []; // Store the list of expenses
 let pieChart;
 let editingIndex = -1; // Variable to store the index of the expense being edited
+let currentMonth = new Date().getMonth() + 1; // Current selected month (1-12)
+let currentYear = new Date().getFullYear(); // Current selected year
 
 window.onload = function () {
   createPieChart();
@@ -9,8 +11,9 @@ window.onload = function () {
   document.getElementById("export-btn").style.display = "none"; // Hide export button initially
   setupLogoutButton(); // Setup logout button event
   displayWelcomeMessage(); // Display welcome message with user's name
-  // Fetch user's expenses after login
-  fetchExpenses();
+  initializeMonthSelector(); // Initialize month selector to current month
+  // Fetch user's expenses and budget for current month
+  fetchExpensesByMonth(currentMonth, currentYear); // Fetch only current month's expenses
   fetchBudget(); // Fetch user's budget
 };
 function fetchExpenses() {
@@ -148,7 +151,7 @@ function updateChart() {
   const categories = ["Food", "Transport", "Entertainment", "Other"];
   const categorySums = categories.map((category) => {
     return expenses
-      .filter((expense) => expense.category === category)
+      .filter((expense) => (expense.type || expense.category) === category)
       .reduce((sum, expense) => sum + expense.amount, 0);
   });
 
@@ -163,14 +166,20 @@ function updateExpenseList(expenseList) {
 
   expenseList.forEach((expense, index) => {
     const row = tableBody.insertRow();
+    const expenseDate = expense.date
+      ? new Date(expense.date).toLocaleDateString()
+      : new Date().toLocaleDateString();
+    const expenseName = expense.description || expense.name || "";
+    const expenseCategory = expense.type || expense.category || "";
+
     row.innerHTML = `
-            <td>${expense.name}</td>
+            <td>${expenseName}</td>
             <td>${expense.amount.toFixed(2)}</td>
-            <td>${expense.category}</td>
-            <td>${new Date().toLocaleDateString()}</td>
+            <td>${expenseCategory}</td>
+            <td>${expenseDate}</td>
             <td>
                 <button onclick="editExpense(${index})">Edit</button>
-                <button onclick="deleteExpense(${index})">Delete</button>
+                <button onclick="deleteExpense(${index})" class="delete-btn">Delete</button>
             </td>
         `;
   });
@@ -227,12 +236,43 @@ function editExpense(index) {
 }
 
 // Delete an expense
-function deleteExpense(index) {
-  expenses.splice(index, 1); // Remove the expense from the array
-  updateExpenseList(expenses); // Update the table
-  updateTotalExpense(expenses); // Update the total expense
-  updateChart(); // Update the chart
-  updateBudgetStatus(); // Update budget status after deleting expense
+async function deleteExpense(index) {
+  const expense = expenses[index];
+
+  if (!expense || !expense._id) {
+    console.error("Expense ID not found");
+    return;
+  }
+
+  if (!confirm("Are you sure you want to permanently delete this expense?")) {
+    return;
+  }
+
+  try {
+    const response = await fetch(`/delete-expense/${expense._id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // Update local expenses array
+      expenses = data.expenses;
+      updateExpenseList(expenses);
+      updateTotalExpense(expenses);
+      updateChart();
+      updateBudgetStatus();
+      alert("Expense deleted successfully!");
+    } else {
+      alert(data.error || "Failed to delete expense");
+    }
+  } catch (error) {
+    console.error("Error deleting expense:", error);
+    alert("Error deleting expense. Please try again.");
+  }
 }
 
 // Setup the logout button functionality
@@ -243,9 +283,9 @@ function setupLogoutButton() {
 }
 
 // Fetch Budget Function
-async function fetchBudget() {
+async function fetchBudget(month = currentMonth, year = currentYear) {
   try {
-    const response = await fetch("/get-budget", {
+    const response = await fetch(`/get-budget?month=${month}&year=${year}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -254,19 +294,179 @@ async function fetchBudget() {
 
     const data = await response.json();
 
-    if (response.ok && data.budget > 0) {
+    if (response.ok) {
       const budgetDisplay = document.getElementById("budget-display");
       const budgetStatus = document.getElementById("budget-status");
+      const monthDisplay = document.getElementById("current-month-display");
 
       if (budgetDisplay && budgetStatus) {
         budgetDisplay.textContent = data.budget.toFixed(2);
-        budgetStatus.style.display = "block";
-        updateBudgetStatus();
+
+        if (monthDisplay) {
+          const date = new Date(data.year, data.month - 1);
+          monthDisplay.textContent = date.toLocaleString("default", {
+            month: "long",
+            year: "numeric",
+          });
+        }
+
+        if (data.budget > 0) {
+          budgetStatus.style.display = "block";
+          updateBudgetStatus();
+        }
       }
     }
   } catch (error) {
     console.error("Error fetching budget:", error);
   }
+}
+
+// Initialize Month Selector
+function initializeMonthSelector() {
+  const monthInput = document.getElementById("view-month");
+  if (monthInput) {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    monthInput.value = `${year}-${month}`;
+  }
+}
+
+// Load Data for Selected Month
+async function loadMonthData() {
+  const monthInput = document.getElementById("view-month");
+  if (!monthInput) return;
+
+  const [year, month] = monthInput.value.split("-");
+  currentYear = parseInt(year);
+  currentMonth = parseInt(month);
+
+  // Hide history table when viewing specific month
+  const historyDiv = document.getElementById("budget-history");
+  if (historyDiv) {
+    historyDiv.style.display = "none";
+  }
+
+  // Fetch budget and expenses for selected month
+  await fetchBudget(currentMonth, currentYear);
+  await fetchExpensesByMonth(currentMonth, currentYear);
+}
+
+// Fetch Expenses for Specific Month
+async function fetchExpensesByMonth(month, year) {
+  try {
+    const response = await fetch(
+      `/get-expenses-by-month?month=${month}&year=${year}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok && data.expenses) {
+      expenses = data.expenses;
+      updateExpenseList(expenses);
+      updateTotalExpense(expenses);
+      updateChart();
+      updateBudgetStatus();
+      document.getElementById("expense-list").style.display = "block";
+    }
+  } catch (error) {
+    console.error("Error fetching expenses:", error);
+  }
+}
+
+// View Budget History for Last 6 Months
+async function viewBudgetHistory() {
+  try {
+    const response = await fetch("/get-budget-history?months=6", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    if (response.ok && data.history) {
+      displayBudgetHistory(data.history);
+      // Fetch all expenses for the last 6 months and update chart
+      await fetch6MonthsExpenses();
+    }
+  } catch (error) {
+    console.error("Error fetching budget history:", error);
+  }
+}
+
+// Fetch and display expenses for last 6 months
+async function fetch6MonthsExpenses() {
+  try {
+    const response = await fetch("/get-expenses", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    if (response.ok && data.expenses) {
+      // Get last 6 months range
+      const now = new Date();
+      const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 5, 1);
+
+      // Filter expenses for last 6 months
+      const last6MonthsExpenses = data.expenses.filter((expense) => {
+        const expenseDate = new Date(expense.date);
+        return expenseDate >= sixMonthsAgo;
+      });
+
+      // Update the global expenses array and chart for 6-month view
+      expenses = last6MonthsExpenses;
+      updateChart();
+    }
+  } catch (error) {
+    console.error("Error fetching 6 months expenses:", error);
+  }
+}
+
+// Display Budget History Table
+function displayBudgetHistory(history) {
+  const historyDiv = document.getElementById("budget-history");
+  const historyList = document.getElementById("budget-history-list");
+
+  if (!historyDiv || !historyList) return;
+
+  // Hide current budget status
+  const budgetStatus = document.getElementById("budget-status");
+  if (budgetStatus) {
+    budgetStatus.style.display = "none";
+  }
+
+  // Clear previous history
+  historyList.innerHTML = "";
+
+  // Populate history table
+  history.forEach((entry) => {
+    const row = historyList.insertRow();
+    const statusClass = entry.remaining >= 0 ? "status-good" : "status-bad";
+    const statusText =
+      entry.remaining >= 0 ? "✓ Within Budget" : "✗ Over Budget";
+
+    row.innerHTML = `
+      <td>${entry.monthName} ${entry.year}</td>
+      <td>₹${entry.budget.toFixed(2)}</td>
+      <td>₹${entry.expenses.toFixed(2)}</td>
+      <td>₹${entry.remaining.toFixed(2)}</td>
+      <td class="${statusClass}">${statusText}</td>
+    `;
+  });
+
+  historyDiv.style.display = "block";
 }
 
 // Update Budget Status and Intensity

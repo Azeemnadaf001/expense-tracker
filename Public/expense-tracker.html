@@ -44,14 +44,32 @@
         <!-- Budget Management Section -->
         <div class="budget-section">
             <h2>Monthly Budget Management</h2>
+            
+            <!-- Month Selector -->
+            <div class="month-selector">
+                <label for="view-month">View Month:</label>
+                <input type="month" id="view-month" onchange="loadMonthData()" />
+                <button onclick="viewBudgetHistory()">View Last 6 Months</button>
+            </div>
+            
             <form id="budget-form" onsubmit="return setBudget(event)">
-                <input type="number" id="budget-amount" placeholder="Set Monthly Budget (₹)" min="0" step="0.01" required />
-                <button type="submit">Set Budget</button>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end;">
+                    <div>
+                        <label for="budget-month" style="display: block; margin-bottom: 5px; font-weight: bold;">Month:</label>
+                        <input type="month" id="budget-month" />
+                    </div>
+                    <div>
+                        <label for="budget-amount" style="display: block; margin-bottom: 5px; font-weight: bold;">Budget (₹):</label>
+                        <input type="number" id="budget-amount" placeholder="Set Monthly Budget (₹)" min="0" step="0.01" required />
+                    </div>
+                    <button type="submit">Set Budget</button>
+                </div>
             </form>
             
             <!-- Budget Status Display -->
             <div id="budget-status" class="budget-status" style="display: none;">
                 <div class="budget-info">
+                    <p><strong>Month:</strong> <span id="current-month-display"></span></p>
                     <p><strong>Monthly Budget:</strong> ₹<span id="budget-display">0</span></p>
                     <p><strong>Total Expenses:</strong> ₹<span id="expense-display">0</span></p>
                     <p><strong>Remaining:</strong> ₹<span id="remaining-display">0</span></p>
@@ -60,6 +78,23 @@
                 <div id="budget-intensity" class="budget-intensity">
                     <span id="intensity-indicator"></span>
                 </div>
+            </div>
+
+            <!-- Budget History Table -->
+            <div id="budget-history" style="display: none;">
+                <h3>Budget History (Last 6 Months)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Budget</th>
+                            <th>Expenses</th>
+                            <th>Remaining</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="budget-history-list"></tbody>
+                </table>
             </div>
         </div>
         
@@ -134,10 +169,26 @@
             event.preventDefault();
             
             const budget = parseFloat(document.getElementById('budget-amount').value);
+            const budgetMonthInput = document.getElementById('budget-month').value;
             
             if (budget <= 0) {
                 alert('Please enter a valid budget amount.');
                 return;
+            }
+            
+            // Parse month input (YYYY-MM format)
+            let month = null;
+            let year = null;
+            
+            if (budgetMonthInput) {
+                const [yearStr, monthStr] = budgetMonthInput.split('-');
+                year = parseInt(yearStr);
+                month = parseInt(monthStr);
+            } else {
+                // Use current month if not specified
+                const now = new Date();
+                month = now.getMonth() + 1;
+                year = now.getFullYear();
             }
             
             try {
@@ -146,7 +197,7 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ budget }),
+                    body: JSON.stringify({ budget, month, year }),
                 });
                 
                 const data = await response.json();
@@ -154,7 +205,16 @@
                 if (response.ok) {
                     alert(data.message);
                     document.getElementById('budget-form').reset();
-                    fetchBudget(); // Refresh budget display
+                    
+                    // Set the month selector to the same month
+                    const monthInput = document.getElementById('view-month');
+                    if (monthInput) {
+                        const monthStr = String(month).padStart(2, '0');
+                        monthInput.value = `${year}-${monthStr}`;
+                    }
+                    
+                    fetchBudget(month, year); // Pass month and year to fetch the correct budget
+                    fetchExpensesByMonth(month, year); // Fetch expenses for the selected month
                     updateBudgetStatus(); // Update budget status
                 } else {
                     alert(data.error || 'Failed to set budget.');
@@ -166,27 +226,6 @@
         }
         
         // Fetch Budget Function
-        async function fetchBudget() {
-            try {
-                const response = await fetch('/get-budget', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                
-                const data = await response.json();
-                
-                if (response.ok && data.budget > 0) {
-                    document.getElementById('budget-display').textContent = data.budget.toFixed(2);
-                    document.getElementById('budget-status').style.display = 'block';
-                    updateBudgetStatus();
-                }
-            } catch (error) {
-                console.error('Error fetching budget:', error);
-            }
-        }
-        
         // Update Budget Status and Intensity
         function updateBudgetStatus() {
             const budget = parseFloat(document.getElementById('budget-display').textContent || 0);
@@ -243,7 +282,7 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ userId, description, amount, type }),
+                    body: JSON.stringify({ userId, description, amount, type, date: expenseDate }),
                 });
 
                 const data = await response.json();
@@ -252,18 +291,39 @@
                     // Show the success message and redirect
                     alert(data.message); // Display success message
                     
-                    // Refresh expenses to update the list
-                    expenses = data.expenses.map(expense => ({
-                        name: expense.description,
-                        amount: expense.amount,
-                        category: expense.type,
-                        date: expense.date,
-                        _id: expense._id
-                    }));
+                    // Parse the date to determine which month was added
+                    const addedDateParts = expenseDate.split('-');
+                    const expenseYear = parseInt(addedDateParts[0]);
+                    const expenseMonth = parseInt(addedDateParts[1]);
                     
-                    updateExpenseList(expenses);
-                    updateTotalExpense(expenses);
-                    updateChart();
+                    // Get the currently viewing month
+                    const monthInput = document.getElementById('view-month');
+                    let currentViewMonth, currentViewYear;
+                    
+                    if (monthInput && monthInput.value) {
+                        const [viewYear, viewMonth] = monthInput.value.split('-');
+                        currentViewMonth = parseInt(viewMonth);
+                        currentViewYear = parseInt(viewYear);
+                    } else {
+                        // Default to current month if not specified
+                        const now = new Date();
+                        currentViewMonth = now.getMonth() + 1;
+                        currentViewYear = now.getFullYear();
+                    }
+                    
+                    // Only update the list if the added expense is in the currently viewed month
+                    if (expenseMonth === currentViewMonth && expenseYear === currentViewYear) {
+                        // Refresh expenses for the current month
+                        await fetchExpensesByMonth(currentViewMonth, currentViewYear);
+                    } else {
+                        // Just show success but keep viewing current month's expenses
+                        // Don't switch to the expense month, just reload current month
+                        const now = new Date();
+                        const viewMonth = currentViewMonth || now.getMonth() + 1;
+                        const viewYear = currentViewYear || now.getFullYear();
+                        await fetchExpensesByMonth(viewMonth, viewYear);
+                    }
+                    
                     updateBudgetStatus(); // Update budget status after adding expense
                     
                     document.getElementById('expense-form').reset();

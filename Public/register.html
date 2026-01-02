@@ -45,7 +45,7 @@
                 <label for="terms">I agree to the terms and conditions</label>
 
                 <div id="passwordStrength"></div>
-                <button type="submit" class="btn" id="registerBtn" disabled>Register</button>
+                <button type="submit" class="btn" id="registerBtn">Register</button>
                 
 
             </form>
@@ -112,11 +112,15 @@ const confirmPassword = document.getElementById('confirmPassword');
 const registerBtn = document.getElementById('registerBtn');
 const errorMessage = document.getElementById('error-message');
 const registerName = document.getElementById('name'); // Add reference to the name field
+const termsCheckbox = document.getElementById('terms');
 
 registerEmail.addEventListener('input', validateEmail);
 registerPassword.addEventListener('input', validatePassword);
 confirmPassword.addEventListener('input', validateConfirmPassword);
 registerName.addEventListener('input', validateName);
+if (termsCheckbox) {
+    termsCheckbox.addEventListener('change', validateForm);
+}
 
 function validateEmail() {
     const email = registerEmail.value;
@@ -208,10 +212,12 @@ function validateForm() {
     const password = registerPassword.value;
     const confirmPwd = confirmPassword.value;
     const name = registerName.value;
+    const termsAccepted = termsCheckbox ? termsCheckbox.checked : true;
 
     // Enable the submit button only if all fields are valid
-    if (email && password && confirmPwd && name.charAt(0) === name.charAt(0).toUpperCase() && checkPasswordStrength(password) && password === confirmPwd) {
+    if (email && password && confirmPwd && name && name.charAt(0) === name.charAt(0).toUpperCase() && checkPasswordStrength(password) && password === confirmPwd && termsAccepted) {
         registerBtn.disabled = false;
+        errorMessage.innerHTML = "";
     } else {
         registerBtn.disabled = true;
     }
