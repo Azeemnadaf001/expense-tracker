@@ -75,12 +75,21 @@ app.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    const existingUser = await User.findOne({ email });
+    // Trim inputs to avoid whitespace issues
+    const trimmedEmail = email ? email.trim() : "";
+    const trimmedPassword = password ? password.trim() : "";
+    const trimmedName = name ? name.trim() : "";
+
+    const existingUser = await User.findOne({ email: trimmedEmail });
     if (existingUser) {
       return res.status(400).json({ error: "Email already registered." });
     }
 
-    const newUser = new User({ name, email, password });
+    const newUser = new User({
+      name: trimmedName,
+      email: trimmedEmail,
+      password: trimmedPassword,
+    });
     await newUser.save();
 
     res.status(201).json({
@@ -100,8 +109,17 @@ app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
-    if (!user || user.password !== password) {
+    // Trim input to remove any whitespace
+    const trimmedEmail = email ? email.trim() : "";
+    const trimmedPassword = password ? password.trim() : "";
+
+    const user = await User.findOne({ email: trimmedEmail });
+    if (!user) {
+      return res.status(400).json({ error: "Invalid email or password." });
+    }
+
+    // Compare passwords (trimmed)
+    if (user.password.trim() !== trimmedPassword) {
       return res.status(400).json({ error: "Invalid email or password." });
     }
 

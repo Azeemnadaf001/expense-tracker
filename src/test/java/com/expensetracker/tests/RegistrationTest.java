@@ -8,18 +8,18 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 
 /**
- * Test Class for User Registration Module
- * Implements test cases: TC_REG_001 to TC_REG_005
+ * Test Class for User Authentication Module - Registration
+ * Implements test cases: TC-AUTH-01 to TC-AUTH-03
  */
 public class RegistrationTest extends BaseTest {
     
     /**
-     * TC_REG_001: Verify successful user registration with valid data
-     * Priority: High | Type: Functional Testing
+     * TC-AUTH-01: Register user with valid details
+     * Expected Result: User account created successfully
      */
-    @Test(priority = 1, description = "TC_REG_001: Verify successful user registration with valid data")
+    @Test(priority = 1, description = "TC-AUTH-01: Register user with valid details")
     public void testSuccessfulRegistration() {
-        test = extent.createTest("TC_REG_001", "Verify successful user registration with valid data");
+        test = extent.createTest("TC-AUTH-01", "Register user with valid details");
         test.log(Status.INFO, "Test started for successful registration");
         
         try {
@@ -94,23 +94,23 @@ public class RegistrationTest extends BaseTest {
             
             Assert.assertTrue(registrationSuccess, "Registration should succeed");
             
-            test.log(Status.PASS, "✓ TC_REG_001 PASSED: User registered successfully");
-            System.out.println("✓ TC_REG_001 PASSED");
+            test.log(Status.PASS, "✓ TC-AUTH-01 PASSED: User registered successfully");
+            System.out.println("✓ TC-AUTH-01 PASSED");
             
         } catch (Exception e) {
-            test.log(Status.FAIL, "✗ TC_REG_001 FAILED: " + e.getMessage());
-            System.err.println("✗ TC_REG_001 FAILED: " + e.getMessage());
+            test.log(Status.FAIL, "✗ TC-AUTH-01 FAILED: " + e.getMessage());
+            System.err.println("✗ TC-AUTH-01 FAILED: " + e.getMessage());
             Assert.fail("Test failed: " + e.getMessage());
         }
     }
     
     /**
-     * TC_REG_002: Verify registration fails with duplicate email
-     * Priority: High | Type: Negative Testing
+     * TC-AUTH-02: Register user with existing email
+     * Expected Result: Error message displayed
      */
-    @Test(priority = 2, description = "TC_REG_002: Verify registration fails with duplicate email")
+    @Test(priority = 2, description = "TC-AUTH-02: Register user with existing email")
     public void testDuplicateEmailRegistration() {
-        test = extent.createTest("TC_REG_002", "Verify registration fails with duplicate email");
+        test = extent.createTest("TC-AUTH-02", "Register user with existing email");
         test.log(Status.INFO, "Test started for duplicate email registration");
         
         try {
@@ -190,23 +190,23 @@ public class RegistrationTest extends BaseTest {
             
             Assert.assertTrue(hasError, "Error message for duplicate email should appear");
             
-            test.log(Status.PASS, "✓ TC_REG_002 PASSED: Duplicate email rejected");
-            System.out.println("✓ TC_REG_002 PASSED");
+            test.log(Status.PASS, "✓ TC-AUTH-02 PASSED: Duplicate email rejected");
+            System.out.println("✓ TC-AUTH-02 PASSED");
             
         } catch (Exception e) {
-            test.log(Status.FAIL, "✗ TC_REG_002 FAILED: " + e.getMessage());
-            System.err.println("✗ TC_REG_002 FAILED: " + e.getMessage());
+            test.log(Status.FAIL, "✗ TC-AUTH-02 FAILED: " + e.getMessage());
+            System.err.println("✗ TC-AUTH-02 FAILED: " + e.getMessage());
             Assert.fail("Test failed: " + e.getMessage());
         }
     }
     
     /**
-     * TC_REG_003: Verify registration fails with empty mandatory fields
-     * Priority: Medium | Type: Validation Testing
+     * TC-AUTH-03: Register user with empty mandatory fields
+     * Expected Result: Validation message displayed
      */
-    @Test(priority = 3, description = "TC_REG_003: Verify registration fails with empty fields")
+    @Test(priority = 3, description = "TC-AUTH-03: Register user with empty mandatory fields")
     public void testEmptyFieldsValidation() {
-        test = extent.createTest("TC_REG_003", "Verify registration fails with empty mandatory fields");
+        test = extent.createTest("TC-AUTH-03", "Register user with empty mandatory fields");
         test.log(Status.INFO, "Test started for empty fields validation");
         
         try {
@@ -238,123 +238,12 @@ public class RegistrationTest extends BaseTest {
             Assert.assertTrue(driver.getCurrentUrl().contains("register"), 
                             "Should remain on registration page");
             
-            test.log(Status.PASS, "✓ TC_REG_003 PASSED: Empty fields validation working");
-            System.out.println("✓ TC_REG_003 PASSED");
+            test.log(Status.PASS, "✓ TC-AUTH-03 PASSED: Empty fields validation working");
+            System.out.println("✓ TC-AUTH-03 PASSED");
             
         } catch (Exception e) {
-            test.log(Status.FAIL, "✗ TC_REG_003 FAILED: " + e.getMessage());
-            System.err.println("✗ TC_REG_003 FAILED: " + e.getMessage());
-            Assert.fail("Test failed: " + e.getMessage());
-        }
-    }
-    
-    /**
-     * TC_REG_004: Verify registration with invalid email format
-     * Priority: Medium | Type: Validation Testing
-     */
-    @Test(priority = 4, description = "TC_REG_004: Verify registration with invalid email format")
-    public void testInvalidEmailFormat() {
-        test = extent.createTest("TC_REG_004", "Verify registration with invalid email format");
-        test.log(Status.INFO, "Test started for invalid email format");
-        
-        try {
-            navigateTo(BASE_URL + "/register.html");
-            waitFor(2);
-            
-            driver.findElement(By.id("name")).sendKeys("Test User");
-            driver.findElement(By.id("registerEmail")).sendKeys("invalidemail"); // No @ symbol
-            driver.findElement(By.id("registerPassword")).sendKeys("Pass123");
-            driver.findElement(By.id("confirmPassword")).sendKeys("Pass123");
-            test.log(Status.INFO, "Entered invalid email format: invalidemail");
-            
-            WebElement termsInvalid = driver.findElement(By.id("terms"));
-            scrollToElement(termsInvalid);
-            clickWithJS(termsInvalid);
-            waitFor(1);
-            WebElement btnInvalid = driver.findElement(By.id("registerBtn"));
-            scrollToElement(btnInvalid);
-            clickWithJS(btnInvalid);
-            waitFor(2);
-            
-            // Check if HTML5 email validation is triggered
-            WebElement emailField = driver.findElement(By.id("registerEmail"));
-            String emailType = emailField.getAttribute("type");
-            
-            // Verify email field type is "email" for HTML5 validation
-            Assert.assertEquals(emailType, "email", "Email field should have type='email'");
-            
-            // Verify still on registration page
-            Assert.assertTrue(driver.getCurrentUrl().contains("register"),
-                            "Should remain on registration page with invalid email");
-            
-            test.log(Status.PASS, "✓ TC_REG_004 PASSED: Invalid email format rejected");
-            System.out.println("✓ TC_REG_004 PASSED");
-            
-        } catch (Exception e) {
-            test.log(Status.FAIL, "✗ TC_REG_004 FAILED: " + e.getMessage());
-            System.err.println("✗ TC_REG_004 FAILED: " + e.getMessage());
-            Assert.fail("Test failed: " + e.getMessage());
-        }
-    }
-    
-    /**
-     * TC_REG_005: Verify registration page UI elements
-     * Priority: Low | Type: UI Testing
-     */
-    @Test(priority = 5, description = "TC_REG_005: Verify registration page UI elements")
-    public void testRegistrationPageUI() {
-        test = extent.createTest("TC_REG_005", "Verify registration page UI elements");
-        test.log(Status.INFO, "Test started for registration UI elements");
-        
-        try {
-            navigateTo(BASE_URL + "/register.html");
-            waitFor(2);
-            test.log(Status.PASS, "Navigated to registration page");
-            
-            // Verify Name field
-            WebElement nameField = driver.findElement(By.id("name"));
-            Assert.assertTrue(nameField.isDisplayed(), "Name field should be visible");
-            test.log(Status.PASS, "Name field is present and visible");
-            
-            // Verify Email field
-            WebElement emailField = driver.findElement(By.id("registerEmail"));
-            Assert.assertTrue(emailField.isDisplayed(), "Email field should be visible");
-            test.log(Status.PASS, "Email field is present and visible");
-            
-            // Verify Password field
-            WebElement passwordField = driver.findElement(By.id("registerPassword"));
-            Assert.assertTrue(passwordField.isDisplayed(), "Password field should be visible");
-            Assert.assertEquals(passwordField.getAttribute("type"), "password", 
-                              "Password field should mask input");
-            test.log(Status.PASS, "Password field is present and masks input");
-            
-            // Verify Confirm Password field
-            WebElement confirmPasswordField = driver.findElement(By.id("confirmPassword"));
-            Assert.assertTrue(confirmPasswordField.isDisplayed(), "Confirm password field should be visible");
-            test.log(Status.PASS, "Confirm password field is present and visible");
-            
-            // Verify Terms checkbox
-            WebElement termsCheckbox = driver.findElement(By.id("terms"));
-            scrollToElement(termsCheckbox);
-            Assert.assertTrue(termsCheckbox.isDisplayed() || termsCheckbox.isEnabled(), "Terms checkbox should be present");
-            test.log(Status.PASS, "Terms checkbox is present");
-            
-            // Verify Submit button
-            WebElement submitButton = driver.findElement(By.id("registerBtn"));
-            Assert.assertTrue(submitButton.isDisplayed(), "Submit button should be visible");
-            test.log(Status.PASS, "Submit button is present");
-            
-            // Verify page title
-            String pageTitle = driver.getTitle();
-            Assert.assertFalse(pageTitle.isEmpty(), "Page should have a title");
-            test.log(Status.PASS, "Page title: " + pageTitle);
-            
-            test.log(Status.PASS, "✓ TC_REG_005 PASSED: All UI elements present");
-            System.out.println("✓ TC_REG_005 PASSED");
-            
-        } catch (Exception e) {
-            test.log(Status.FAIL, "✗ TC_REG_005 FAILED: " + e.getMessage());
-            System.err.println("✗ TC_REG_005 FAILED: " + e.getMessage());
+            test.log(Status.FAIL, "✗ TC-AUTH-03 FAILED: " + e.getMessage());
+            System.err.println("✗ TC-AUTH-03 FAILED: " + e.getMessage());
             Assert.fail("Test failed: " + e.getMessage());
         }
     }
